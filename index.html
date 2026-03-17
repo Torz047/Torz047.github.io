@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christopher John B. Dela Peña — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0D2B45;
+    --navy-mid: #1A3F5C;
+    --navy-light: #254E72;
+    --gold: #B8973A;
+    --gold-light: #D4AF55;
+    --gold-pale: #F0E3B8;
+    --cream: #F7F4EF;
+    --cream-dark: #EDE9E1;
+    --text: #1C1C1C;
+    --text-muted: #5A5A5A;
+    --border: #D8D0C4;
+    --white: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem;
+    height: 60px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light);
+    font-size: 15px;
+    letter-spacing: 0.04em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    background-image:
+      radial-gradient(ellipse at 80% 50%, rgba(184,151,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 80%, rgba(26,63,92,0.6) 0%, transparent 50%);
+    padding: 5rem 3rem 4rem;
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+  .hero-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    border: 2.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: var(--gold-light);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 6px rgba(184,151,58,0.15);
+    animation: avatarPop 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  }
+  @keyframes avatarPop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .hero-text { flex: 1; min-width: 280px; }
+  .hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--white);
+    line-height: 1.1;
+    font-weight: 700;
+    opacity: 0;
+    animation: slideUp 0.6s ease 0.2s forwards;
+  }
+  .hero-text h1 span { color: var(--gold-light); }
+  .hero-tagline {
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    opacity: 0;
+    animation: slideUp 0.6s ease 0.35s forwards;
+  }
+  .hero-contacts {
+    display: flex;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 0.6s ease 0.5s forwards;
+  }
+  .hero-contacts a, .hero-contacts span {
+    color: rgba(255,255,255,0.7);
+    font-size: 13.5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: color 0.2s;
+  }
+  .hero-contacts a:hover { color: var(--gold-light); }
+  .dot { color: var(--gold); font-size: 8px; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MAIN LAYOUT */
+  .layout {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 1.4rem; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 0.5px solid var(--border);
+    padding: 1.4rem 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card:nth-child(1) { animation-delay: 0.3s; }
+  .card:nth-child(2) { animation-delay: 0.4s; }
+  .card:nth-child(3) { animation-delay: 0.5s; }
+  .card:nth-child(4) { animation-delay: 0.6s; }
+  .card:nth-child(5) { animation-delay: 0.7s; }
+  .card:nth-child(6) { animation-delay: 0.8s; }
+  .card:nth-child(7) { animation-delay: 0.9s; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1.5px solid var(--gold);
+    display: inline-block;
+  }
+
+  /* ABOUT */
+  .about-text {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* SKILL BARS */
+  .skill-item { margin-bottom: 1rem; }
+  .skill-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .skill-level { color: var(--text-muted); font-size: 12px; font-weight: 400; }
+  .skill-bar {
+    height: 4px;
+    background: var(--cream-dark);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--navy), var(--gold));
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: growBar 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+  @keyframes growBar { to { transform: scaleX(1); } }
+
+  /* TOOLS */
+  .tools-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tool-tag {
+    background: var(--cream);
+    border: 0.5px solid var(--border);
+    color: var(--navy);
+    font-size: 12px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .tool-tag:hover { background: var(--gold-pale); border-color: var(--gold); }
+
+  /* EDUCATION */
+  .edu-school { font-size: 13.5px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+  .edu-degree { font-size: 13px; color: var(--text); margin-bottom: 3px; }
+  .edu-year { font-size: 12px; color: var(--text-muted); }
+  .edu-badge {
+    display: inline-block;
+    margin-top: 8px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: var(--gold-light);
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* LANGUAGES */
+  .lang-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 5px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .lang-row:last-child { border-bottom: none; }
+  .lang-name { color: var(--text); font-weight: 500; }
+  .lang-level {
+    font-size: 11px;
+    background: var(--cream);
+    color: var(--navy);
+    padding: 2px 9px;
+    border-radius: 10px;
+    border: 0.5px solid var(--border);
+  }
+
+  /* LINKS */
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--border);
+    transition: color 0.2s;
+    word-break: break-all;
+  }
+  .link-item:last-child { border-bottom: none; }
+  .link-item:hover { color: var(--gold); }
+  .link-icon { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* REFERENCE */
+  .ref-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold-light); font-size: 13px; font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    flex-shrink: 0;
+  }
+  .ref-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .ref-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .ref-role { font-size: 12px; color: var(--text-muted); }
+  .ref-detail { display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; border-top: 0.5px solid var(--border); }
+  .ref-key { color: var(--text-muted); }
+  .ref-val { color: var(--text); font-weight: 500; }
+
+  /* MAIN CONTENT */
+  .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--navy);
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(184,151,58,0.12), transparent 70%);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1.5rem 1rem;
+    gap: 0;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.3s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 10%; right: 10%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .stat {
+    text-align: center;
+    padding: 0.5rem;
+    border-right: 0.5px solid rgba(255,255,255,0.1);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold-light);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 5px;
+    display: block;
+  }
+
+  /* EXPERIENCE CARD */
+  .exp-card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 0.5px solid var(--border);
+    padding: 1.6rem 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.45s forwards;
+  }
+  .section-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1.5px solid var(--gold);
+    display: inline-block;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 1.2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), var(--border));
+  }
+  .exp-item {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  .exp-item:last-child { margin-bottom: 0; }
+  .exp-dot {
+    position: absolute;
+    left: -1.2rem;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--white);
+    outline: 1.5px solid var(--gold);
+    z-index: 1;
+  }
+  .exp-dot.current { background: var(--navy); outline-color: var(--navy); }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .exp-title { font-size: 15px; font-weight: 600; color: var(--navy); }
+  .exp-tenure {
+    font-size: 11px;
+    background: var(--navy);
+    color: var(--gold-light);
+    padding: 3px 11px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .exp-tenure.current-badge {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+  }
+  .exp-company { font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 0.7rem; }
+  .exp-duties { list-style: none; padding: 0; }
+  .exp-duties li {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 3.5px 0 3.5px 1.1rem;
+    position: relative;
+    line-height: 1.65;
+  }
+  .exp-duties li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+    top: 5px;
+  }
+
+  /* PROFESSIONAL SUMMARY SECTION */
+  .summary-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: 12px;
+    padding: 1.6rem 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.6s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+  .summary-card::before {
+    content: '"';
+    position: absolute;
+    right: 1.5rem;
+    top: -0.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: rgba(184,151,58,0.12);
+    line-height: 1;
+  }
+  .summary-card .section-header { color: var(--gold-light); border-bottom-color: rgba(184,151,58,0.4); }
+  .summary-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.85;
+    font-style: italic;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(184,151,58,0.2);
+  }
+  footer span { color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; padding: 1.5rem 1rem; }
+    .hero { padding: 3rem 1.5rem 2.5rem; gap: 2rem; }
+    .hero-text h1 { font-size: 2.2rem; }
+    nav { padding: 0 1.2rem; }
+    .nav-links { gap: 1.2rem; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+  }
+  @media (max-width: 480px) {
+    .hero { flex-direction: column; }
+    .nav-links { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* PRINT */
+  @media print {
+    nav { position: static; }
+    .card, .exp-card, .summary-card, .stats-bar { opacity: 1 !important; animation: none !important; }
+    .hero-text h1, .hero-tagline, .hero-contacts { opacity: 1 !important; animation: none !important; }
+    .hero-avatar { animation: none !important; }
+    footer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Christopher John B. Dela Peña</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-avatar">CJ</div>
+  <div class="hero-text">
+    <h1>Christopher John B.<br><span>Dela Peña</span></h1>
+    <p class="hero-tagline">Production & Inventory Control Planner &nbsp;·&nbsp; Licensed Electronics Engineer</p>
+    <div class="hero-contacts">
+      <a href="tel:+639155184727">
+        <svg style="width:14px;height:14px;fill:var(--gold)" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        +63 915 518 4727
+      </a>
+      <a href="mailto:calixpogi019@gmail.com">
+        <svg style="width:14px;height:14px;fill:var(--gold)" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        calixpogi019@gmail.com
+      </a>
+      <span>
+        <svg style="width:14px;height:14px;fill:var(--gold)" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Philippines
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="card">
+      <div class="card-title">About Me</div>
+      <p class="about-text">A hardworking professional with a keen eye for detail, proven leadership skills, and a results-driven mindset. Seeking a challenging role to contribute expertise in production planning and operations management to organizational growth.</p>
+    </div>
+
+    <div class="card" id="skills">
+      <div class="card-title">Professional Skills</div>
+      <div class="skill-item">
+        <div class="skill-label"><span>Electronics Engineering</span><span class="skill-level">Expert</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%;animation-delay:0.5s"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label"><span>Production Planning</span><span class="skill-level">Expert</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%;animation-delay:0.6s"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label"><span>Inventory Control</span><span class="skill-level">Expert</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%;animation-delay:0.7s"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label"><span>Leadership & Management</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%;animation-delay:0.8s"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label"><span>Full Stack Web Dev</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%;animation-delay:0.9s"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label"><span>Data Analysis (Excel / Power BI)</span><span class="skill-level">Advanced</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%;animation-delay:1s"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Tools & Software</div>
+      <div class="tools-grid">
+        <span class="tool-tag">Microsoft Excel</span>
+        <span class="tool-tag">Power BI</span>
+        <span class="tool-tag">SAP Business One</span>
+        <span class="tool-tag">Visual Studio Code</span>
+        <span class="tool-tag">Code Sandbox</span>
+        <span class="tool-tag">MS Office Suite</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Education</div>
+      <div class="edu-school">Bataan Peninsula State University</div>
+      <div class="edu-degree">Bachelor of Science in Electronics Engineering</div>
+      <div class="edu-year">March 2009 – April 2013</div>
+      <span class="edu-badge">Licensed ECE &amp; ECT</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Languages</div>
+      <div class="lang-row">
+        <span class="lang-name">Filipino / Tagalog</span>
+        <span class="lang-level">Native</span>
+      </div>
+      <div class="lang-row">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Proficient</span>
+      </div>
+    </div>
+
+    <div class="card" id="contact">
+      <div class="card-title">Project Portfolio</div>
+      <a class="link-item" href="https://283c6f-5173.csb.app/" target="_blank">
+        <span class="link-icon"></span>CodeSandbox Project
+      </a>
+      <a class="link-item" href="https://procurement-system--calixpogi019.replit.app" target="_blank">
+        <span class="link-icon"></span>Procurement System App
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Reference</div>
+      <div class="ref-row">
+        <div class="ref-avatar">RB</div>
+        <div>
+          <div class="ref-name">Rhea Bactad</div>
+          <div class="ref-role">Production Planning Supervisor</div>
+        </div>
+      </div>
+      <div class="ref-detail">
+        <span class="ref-key">Company</span>
+        <span class="ref-val">Nicera Philippines Inc.</span>
+      </div>
+      <div class="ref-detail">
+        <span class="ref-key">Contact</span>
+        <span class="ref-val">+63 917 560 0768</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Key Roles Held</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">PH Licenses</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Live Projects</span>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="exp-card" id="experience">
+      <div class="section-header">Work Experience</div>
+      <div class="timeline">
+
+        <div class="exp-item">
+          <div class="exp-dot current"></div>
+          <div class="exp-header">
+            <span class="exp-title">Production & Inventory Control Planner</span>
+            <span class="exp-tenure current-badge">Current Position</span>
+          </div>
+          <div class="exp-company">Enplas Semiconductor Peripherals Inc. &nbsp;·&nbsp; Manufacturing Industry, Philippines</div>
+          <ul class="exp-duties">
+            <li>Monitor customer orders end-to-end — from raw materials procurement to finished goods delivery</li>
+            <li>Ensure material availability through coordinated purchasing and supplier management processes</li>
+            <li>Monitor and support production workers processing performance</li>
+            <li>Validate supplier efficiency through performance KPIs and on-site visits</li>
+            <li>Maintain accurate records using SAP Business One, Meslink, and other enterprise software tools</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <span class="exp-title">Production Planner</span>
+            <span class="exp-tenure">5.5 Years</span>
+          </div>
+          <div class="exp-company">Nicera Philippines Inc. &nbsp;·&nbsp; Manufacturing Industry, Philippines</div>
+          <ul class="exp-duties">
+            <li>Confirmed sales orders and coordinated with all affected functions across departments</li>
+            <li>Created profitable production plans optimized for delivery schedules and resource utilization</li>
+            <li>Aligned production plans with confirmed raw materials arrivals to avoid supply gaps</li>
+            <li>Monitored status of all active sales orders to ensure complete and on-time delivery</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div class="exp-header">
+            <span class="exp-title">Production Group Leader</span>
+            <span class="exp-tenure">5 Years</span>
+          </div>
+          <div class="exp-company">Nicera Philippines Inc. &nbsp;·&nbsp; Manufacturing Industry, Philippines</div>
+          <ul class="exp-duties">
+            <li>Led production teams to consistently achieve daily production targets and quality standards</li>
+            <li>Managed and resolved production abnormalities and process deviations promptly</li>
+            <li>Facilitated cross-training of personnel across multiple production processes</li>
+            <li>Monitored hourly process outputs and ensured smooth work-in-process flow and throughput</li>
+            <li>Managed workforce assignments and workload allocation to maximize daily goal attainment</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SUMMARY QUOTE -->
+    <div class="summary-card">
+      <div class="section-header">Professional Summary</div>
+      <p class="summary-text">
+        A highly motivated and detail-oriented professional with over a decade of experience in manufacturing operations, production planning, and inventory management. Combining a strong foundation in Electronics Engineering with hands-on leadership and full-stack development skills, I bring a rare blend of technical depth and operational excellence to every role I undertake.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Christopher John B. Dela Peña</span> &nbsp;·&nbsp; Production & Inventory Control Planner &nbsp;·&nbsp; Philippines</p>
+</footer>
+
+</body>
+</html>
